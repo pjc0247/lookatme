@@ -33,6 +33,16 @@ namespace lookatme
         {
             return inst.OpCode == OpCodes.Call || inst.OpCode == OpCodes.Calli || inst.OpCode == OpCodes.Callvirt;
         }
+
+        public static bool IsStfld(this Instruction inst)
+        {
+            return inst.OpCode == OpCodes.Stfld || inst.OpCode == OpCodes.Stsfld;
+        }
+        public static bool IsLdfld(this Instruction inst)
+        {
+            return inst.OpCode == OpCodes.Ldsfld || inst.OpCode == OpCodes.Ldsflda ||
+                inst.OpCode == OpCodes.Ldfld || inst.OpCode == OpCodes.Ldflda || inst.OpCode == OpCodes.Ldftn;
+        }
         public static bool IsLdarg(this Instruction inst)
         {
             return inst.OpCode == OpCodes.Ldarg

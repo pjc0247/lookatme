@@ -47,9 +47,7 @@ namespace lookatme
                 {
                     var inst = method.Body.Instructions[i];
 
-                    if (inst.OpCode == OpCodes.Stfld || inst.OpCode == OpCodes.Stsfld ||
-                        inst.OpCode == OpCodes.Ldsfld || inst.OpCode == OpCodes.Ldsflda ||
-                        inst.OpCode == OpCodes.Ldfld || inst.OpCode == OpCodes.Ldflda || inst.OpCode == OpCodes.Ldftn)
+                    if (inst.IsStfld() || inst.IsLdfld())
                     {
                         var operand = (FieldReference)inst.Operand;
 
