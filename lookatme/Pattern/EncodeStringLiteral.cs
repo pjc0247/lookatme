@@ -9,6 +9,9 @@ using Mono.Cecil.Cil;
 
 namespace lookatme
 {
+    /* 스트링 리터럴을 암호화한다.
+     * 
+     */
     class EncodeStringLiteral : PatternBase
     {
         public override void EachMethod(MethodDefinition method)

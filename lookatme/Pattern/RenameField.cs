@@ -9,6 +9,9 @@ using Mono.Cecil.Cil;
 
 namespace lookatme
 {
+    /* 필드 이름을 변경한다.
+     * 
+     */ 
     class RenameField : PatternBase
     {
         private bool IsRenamable(FieldDefinition field)

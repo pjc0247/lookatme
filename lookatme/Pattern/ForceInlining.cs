@@ -9,6 +9,16 @@ using Mono.Cecil.Cil;
 
 namespace lookatme
 {
+    /* 함수 콜을 강제적으로 인라이닝한다.
+     *   함수 콜을 하지 않기 떄문에 함수 이름으로부터 힌트를 얻을 수 없고
+     *   한개의 메소드가 매우 길어져서 읽기 힘들게 된다.
+     * 
+     * flow
+     *   1. 만약 instance call이면 ldarg0 역할을 할 지역변수를 만든다.
+     *   2. 호출 전에는 파라미터가 스택에 저장되어 있으므로 해당 파라미터를 지역변수에 모두 담는다.
+     *   3. 인스트럭션을 순회하면서 ret은 jmp로 변경한다,
+     *   4. ldarg는 1번에서 저장한 지역변수에서 가져오도록 변경한다.
+     */
     class ForceInlining : PatternBase
     {
         public override void EachMethod(MethodDefinition method)
