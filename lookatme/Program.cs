@@ -11,9 +11,16 @@ namespace lookatme
     {
         static void Main(string[] args)
         {
-            Obfuscator.Run(
-                "..\\..\\..\\sampleapp\\bin\\Debug\\sampleapp.exe",
-                "output.exe");
+            try
+            {
+                Obfuscator.Run(
+                    "..\\..\\..\\sampleapp\\bin\\Debug\\sampleapp.exe",
+                    "output.exe");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
     }
 }

@@ -16,29 +16,19 @@ namespace lookatme
     {
         public static void Run(string inputPath, string outputPath)
         {
-            try
+            var module = ModuleDefinition.ReadModule(inputPath);
+
+            Injector.Inject(module, typeof(lookatme.corelib.AssemblyTag).Assembly);
+
+            foreach (var type in Assembly.GetExecutingAssembly().GetTypes())
             {
-                var module = ModuleDefinition.ReadModule(inputPath);
+                if (type.BaseType != (typeof(PatternBase))) continue;
 
-                foreach (var rf in module.AssemblyReferences)
-                    Console.WriteLine(rf);
-
-                Injector.Inject(module, typeof(lookatme.corelib.AssemblyTag).Assembly);
-
-                foreach (var type in Assembly.GetExecutingAssembly().GetTypes())
-                {
-                    if (type.BaseType != (typeof(PatternBase))) continue;
-
-                    var inst = Activator.CreateInstance(type);
-                    typeof(PatternBase).GetMethod(nameof(PatternBase.Execute)).Invoke(inst, new object[] { module });
-                }
-
-                module.Write(outputPath);
+                var inst = Activator.CreateInstance(type);
+                typeof(PatternBase).GetMethod(nameof(PatternBase.Execute)).Invoke(inst, new object[] { module });
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
+
+            module.Write(outputPath);
         }
     }
 }
