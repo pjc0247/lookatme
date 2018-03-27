@@ -1,7 +1,7 @@
 lookatme
 ====
 
-Studying purpose .NET obfuscator.
+.NET obfuscator for Studying purpose.
 
 Goal
 ----
