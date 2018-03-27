@@ -13,8 +13,6 @@ namespace lookatme
     {
         public override void EachMethod(MethodDefinition method)
         {
-            return;
-
             if (method.Body.HasExceptionHandlers) return;
             if (method.IsIL == false) return;
 

@@ -58,6 +58,7 @@
     <Compile Include="IL\IlHelper.cs" />
     <Compile Include="IL\Injector.cs" />
     <Compile Include="IL\Resolver.cs" />
+    <Compile Include="Obfuscator.cs" />
     <Compile Include="Pattern\EncodeStringLiteral.cs" />
     <Compile Include="Pattern\ForceInlining.cs" />
     <Compile Include="Pattern\PatternBase.cs" />
