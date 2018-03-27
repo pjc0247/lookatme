@@ -33,9 +33,11 @@ namespace lookatme
 
                 if (operand.Resolve().IsIL == false || operand.Resolve().Body == null) continue;
 
+                // 스택을 지역 변수에 저장해야 하므로 파라미터만큼 지역변수를 만든다.
                 foreach (var v in operand.Resolve().Body.Variables)
                     method.Body.Variables.Add(v);
 
+                // Instance call needs `this(arg0)`.
                 if (il.OpCode == OpCodes.Calli || il.OpCode == OpCodes.Callvirt)
                     parameters.Add(new VariableDefinition(module.ImportReference(operand.DeclaringType)));
                 foreach (var v in operand.Resolve().Parameters)
