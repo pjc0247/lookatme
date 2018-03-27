@@ -10,7 +10,11 @@ using Mono.Cecil.Cil;
 namespace lookatme
 {
     /* 필드 이름을 변경한다.
-     * 
+     *   필드 이름은 local과 달리 어셈블리에 이름이 그대로 노출되므로
+     *   해당 변수의 역할을 이름으로부터 추측하기가 쉽다.
+     *   
+     * flow
+     *   1.
      */ 
     class RenameField : PatternBase
     {

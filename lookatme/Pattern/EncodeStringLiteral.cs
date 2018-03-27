@@ -10,7 +10,15 @@ using Mono.Cecil.Cil;
 namespace lookatme
 {
     /* 스트링 리터럴을 암호화한다.
-     * 
+     *   스트링 리터럴은 디어셈블리 시 바로 노출되므로
+     *   암호화 해서 알기 어렵게 한다.
+     *   
+     * flow
+     *   1. 암호화/복호화 코드를 타겟 어셈블리에 Inject한다. (See Injector.cs)
+     *   2. 모든 Ldstr을 
+     *         ldstr "ENCODED STRING"
+     *         call  StringEncoder.Decode
+     *      로 치환한다.
      */
     class EncodeStringLiteral : PatternBase
     {
