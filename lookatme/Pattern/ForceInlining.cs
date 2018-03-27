@@ -43,9 +43,8 @@ namespace lookatme
                         method.Body.Variables.Add(parameters.Last());
                     }
 
-                    instructions.Insert(i + 1, p.Create(OpCodes.Nop));
-                    var next = instructions[i + 1];
-                    instructions.RemoveAt(i);
+                    var nopTarget = p.Create(OpCodes.Nop);
+                    p.Replace(il, nopTarget);
 
                     var instrcutionsToCopy = operand.Resolve().Body.Instructions;
                     foreach (var param in parameters)
@@ -59,7 +58,7 @@ namespace lookatme
                     foreach (var inst in instrcutionsToCopy)
                     {
                         if (inst.OpCode == OpCodes.Ret)
-                            instructions.Insert(offset, p.Create(OpCodes.Br_S, next)); 
+                            instructions.Insert(offset, p.Create(OpCodes.Br_S, nopTarget)); 
                         else if (inst.IsLdarg())
                         {
                             var idx = 0;
