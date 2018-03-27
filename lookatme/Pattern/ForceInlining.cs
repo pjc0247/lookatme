@@ -66,6 +66,7 @@ namespace lookatme
                             if (inst.OpCode == OpCodes.Ldarg_1) idx = 1;
                             if (inst.OpCode == OpCodes.Ldarg_2) idx = 2;
                             if (inst.OpCode == OpCodes.Ldarg_3) idx = 3;
+                            else idx = (byte)inst.Operand;
 
                             instructions.Insert(offset, p.Create(OpCodes.Ldloc, parameters[idx]));
                         }
