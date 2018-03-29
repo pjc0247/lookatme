@@ -37,20 +37,20 @@ namespace lookatme
 
                 if (il.IsCall() == false) continue;
 
-                var operand = (MethodReference)il.Operand;
+                var operand = ((MethodReference)il.Operand).Resolve();
                 var offset = i;
                 var parameters = new List<VariableDefinition>();
 
-                if (operand.Resolve().IsIL == false || operand.Resolve().Body == null) continue;
+                if (operand.IsIL == false || operand.Body == null) continue;
 
                 // 스택을 지역 변수에 저장해야 하므로 파라미터만큼 지역변수를 만든다.
-                foreach (var v in operand.Resolve().Body.Variables)
+                foreach (var v in operand.Body.Variables)
                     method.Body.Variables.Add(v);
 
                 // Instance call needs `this(arg0)`.
                 if (il.OpCode == OpCodes.Calli || il.OpCode == OpCodes.Callvirt)
                     parameters.Add(new VariableDefinition(module.ImportReference(operand.DeclaringType)));
-                foreach (var v in operand.Resolve().Parameters)
+                foreach (var v in operand.Parameters)
                 {
                     parameters.Add(new VariableDefinition(module.ImportReference(v.ParameterType)));
                     method.Body.Variables.Add(parameters.Last());
@@ -60,7 +60,7 @@ namespace lookatme
                 p.Replace(il, nopTarget);
 
                 // STACK => LOCAL
-                var instrcutionsToCopy = operand.Resolve().Body.Instructions;
+                var instrcutionsToCopy = operand.Body.Instructions;
                 foreach (var param in parameters)
                 {
                     instructions.Insert(i, p.Create(OpCodes.Stloc, param));
