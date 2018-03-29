@@ -18,6 +18,7 @@ namespace lookatme
         {
             var module = ModuleDefinition.ReadModule(inputPath);
 
+            // Injects `corelib` into target assembly.
             Injector.Inject(module, typeof(lookatme.corelib.AssemblyTag).Assembly);
 
             foreach (var type in Assembly.GetExecutingAssembly().GetTypes())
