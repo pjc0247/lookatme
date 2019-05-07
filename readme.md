@@ -12,6 +12,7 @@ Goal
 Patterns
 ----
 * [x] Encode/Decode string literals
+  * [x] by Assembly Injection (merging)
 * [x] Force inlining
 * [x] Change field names.
 * [ ] Change method names.
