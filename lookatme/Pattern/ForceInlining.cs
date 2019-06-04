@@ -48,7 +48,7 @@ namespace lookatme
                     method.Body.Variables.Add(v);
 
                 // Instance call needs `this(arg0)`.
-                if (il.OpCode == OpCodes.Calli || il.OpCode == OpCodes.Callvirt)
+                if (operand.IsStatic == false)
                     parameters.Add(new VariableDefinition(module.ImportReference(operand.DeclaringType)));
                 foreach (var v in operand.Parameters)
                 {
