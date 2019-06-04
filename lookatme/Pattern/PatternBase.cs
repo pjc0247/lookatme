@@ -23,7 +23,11 @@ namespace lookatme
                 EachType(type);
 
                 foreach (var method in type.Methods)
+                {
+                    if (method.HasBody == false)
+                        continue;
                     EachMethod(method);
+                }
             }
         }
 
