@@ -38,6 +38,9 @@ namespace lookatme
                 if (il.IsCall() == false) continue;
 
                 var operand = ((MethodReference)il.Operand).Resolve();
+                if (operand.Module != method.Module)
+                    continue;
+
                 var offset = i;
                 var parameters = new List<VariableDefinition>();
 
